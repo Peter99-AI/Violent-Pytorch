@@ -12,7 +12,7 @@ warnings.filterwarnings("ignore")
 device = ("cuda" if torch.cuda.is_available() else "cpu")
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-video_path = r"video\fire.avi"
+video_path = r"video\nofight\no-fight (15).mp4"
 cap = cv2.VideoCapture(video_path)
 
 seq_length = 15
@@ -21,8 +21,11 @@ frames = deque(maxlen=seq_length)
 count = 0
 
 model = CNNLSTM().to(device)
-model.load_state_dict(torch.load("save/model_best.pth"))
+model.load_state_dict(torch.load("save/model_best.pth", map_location=torch.device('cpu')))
 model.eval()
+
+
+out = cv2.VideoWriter('result/output.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (1280,720))
 
 while True:
     ret, frame = cap.read()
@@ -53,16 +56,20 @@ while True:
         pred_idx = torch.argmax(pred, dim=1)[0]
 
         if pred_idx:
-            cv2.putText(frame, "noFire", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0),
+            cv2.putText(frame, "noFight", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 255, 0),
                         lineType=cv2.LINE_AA, thickness=2)
         else:
-            cv2.putText(frame, "Fire", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255),
+            cv2.putText(frame, "Fight", (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255),
                         lineType=cv2.LINE_AA, thickness=2)
 
         frames.popleft()
 
     count += 1
 
-    cv2.imshow("Video", frame)
-    if cv2.waitKey(10) == ord("q"):
-        break
+    out.write(frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+      break
+
+cap.release()
+out.release()
+cv2.destroyAllWindows()

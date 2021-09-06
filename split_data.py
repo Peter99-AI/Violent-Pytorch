@@ -16,12 +16,6 @@ all_filename = os.listdir(img_file)
 np.random.shuffle(all_filename)
 train_files, valid_files = np.split(np.array(all_filename), [int(len(all_filename) * (1 - valid_ratio))])
 
-# train_files  = [src + "/train/" + name for name in train_files.tolist()]
-# valid_files  = [src + "/valid/" + name for name in valid_files.tolist()]
-
-print("train-list : ", train_files)
-print('valid-list : ', valid_files)
-
 print("*****************************")
 print('Total images: ', len(all_filename))
 print('Training: ', len(train_files))
