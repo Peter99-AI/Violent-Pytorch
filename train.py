@@ -10,8 +10,8 @@ warnings.filterwarnings("ignore")
 
 device = ("cuda" if torch.cuda.is_available() else "cpu")
 
-train_set = FireDataset(r"data\train")
-valid_set = FireDataset(r"data\valid")
+train_set = FireDataset(r"data/train")
+valid_set = FireDataset(r"data/valid")
 
 train_loader = DataLoader(dataset=train_set, batch_size=8, pin_memory=True, shuffle=True)
 valid_loader = DataLoader(dataset=valid_set, batch_size=8, pin_memory=True, shuffle=True)
