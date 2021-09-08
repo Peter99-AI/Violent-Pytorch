@@ -4,15 +4,10 @@ import shutil
 import os.path
 
 
-def split_data():
+def split_data(path_train, path_valid):
     img_file = r"img"
     root_dir = r"data"
     valid_ratio = 0.2
-
-    if not os.path.exists(root_dir + '/train'):
-        os.makedirs(root_dir + '/train')
-    if not os.path.exists(root_dir + '/valid'):
-        os.makedirs(root_dir + '/valid')
 
     all_filename = os.listdir(img_file)
     np.random.shuffle(all_filename)
@@ -33,10 +28,10 @@ def split_data():
 
     for name in train_files:
         src = img_file +"/"+ name
-        dst = root_dir + '/train/nofight/' + name
+        dst = root_dir + path_train + name
         os.rename(src,dst)
 
     for name in valid_files:
         src = img_file +"/"+ name
-        dst = root_dir + '/valid/nofight/' + name
+        dst = root_dir + path_valid + name
         os.rename(src,dst)
