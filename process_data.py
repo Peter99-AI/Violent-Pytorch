@@ -34,7 +34,7 @@ for ind, path in enumerate(path_videos):
 
                 file_name = os.path.join(outpath, i.split(".")[0] + "_" + jj + ".png")
                 cv2.imwrite(file_name, k)
-        if len(os.listdir("img")) > 15000:
+        if len(os.listdir("img")) > 10000:
             break
     split_data.split_data(path_imgs[ind][0], path_imgs[ind][1])
 
