@@ -9,12 +9,12 @@ video_nofight = 'Violence-Dataset/NonViolence'
 path_videos = ['Violence-Dataset/Violence', 'Violence-Dataset/NonViolence']
 
 for path in path_videos:
-    for i in os.listdir(path_videos):
+    for i in os.listdir(path):
         if "avi" in i or "mp4" in i:
             imgs = []
             count = 0
 
-            cap = cv2.VideoCapture(os.path.join(path_videos, i))
+            cap = cv2.VideoCapture(os.path.join(path, i))
             while True:
                 ret, frame = cap.read()
 
