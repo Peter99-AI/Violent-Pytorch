@@ -8,7 +8,7 @@ video_nofight = 'Violence-Dataset/NonViolence'
 
 path_videos = ['Violence-Dataset/Violence', 'Violence-Dataset/NonViolence']
 
-for path in path_videos:
+for ind, path in enumerate(path_videos):
     for i in os.listdir(path):
         if "avi" in i or "mp4" in i:
             imgs = []
@@ -36,5 +36,5 @@ for path in path_videos:
                 cv2.imwrite(file_name, k)
         if len(os.listdir("img")) > 15000:
             break
-    split_data.split_data()
+    split_data.split_data(path_imgs[ind][0], path_imgs[ind][1])
 
