@@ -7,6 +7,7 @@ video_fight = 'Violence-Dataset/Violence'
 video_nofight = 'Violence-Dataset/NonViolence'
 
 path_videos = ['Violence-Dataset/Violence', 'Violence-Dataset/NonViolence']
+path_imgs = [['/train/fight/', '/valid/fight/'], ['/train/nofight/', '/valid/nofight/']]
 
 for ind, path in enumerate(path_videos):
     for i in os.listdir(path):
