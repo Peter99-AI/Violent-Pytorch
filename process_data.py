@@ -31,7 +31,7 @@ for ind, path in enumerate(path_videos):
                 imgs.pop(-1)
 
             for (j, k) in enumerate(imgs):
-                jj = "{:=06d}".format(j)
+                jj = "{:=07d}".format(j)
 
                 file_name = os.path.join(outpath, i.split(".")[0] + "_" + jj + ".png")
                 cv2.imwrite(file_name, k)
