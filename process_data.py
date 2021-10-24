@@ -3,10 +3,8 @@ import cv2
 import split_data
 
 outpath = r"img"
-video_fight = 'Violence-Dataset/Violence'
-video_nofight = 'Violence-Dataset/NonViolence'
 
-path_videos = ['Violence-Dataset/Violence', 'Violence-Dataset/NonViolence']
+path_videos = ['video/fight', 'video/nofight']
 path_imgs = [['/train/fight/', '/valid/fight/'], ['/train/nofight/', '/valid/nofight/']]
 
 for ind, path in enumerate(path_videos):
@@ -31,11 +29,14 @@ for ind, path in enumerate(path_videos):
                 imgs.pop(-1)
 
             for (j, k) in enumerate(imgs):
-                jj = "{:=07d}".format(j)
+                jj = "{:=06d}".format(j)
 
                 file_name = os.path.join(outpath, i.split(".")[0] + "_" + jj + ".png")
                 cv2.imwrite(file_name, k)
-        if len(os.listdir("img")) > 7500:
+        if len(os.listdir("img")) > 15000:
             break
+    print(ind)
+    print(path_imgs[ind][0])
+    print(path_imgs[ind][1])
     split_data.split_data(path_imgs[ind][0], path_imgs[ind][1])
 

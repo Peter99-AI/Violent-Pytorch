@@ -7,12 +7,21 @@ from PIL import Image
 from torch.autograd import Variable
 from collections import deque
 import warnings
+
+def getSizeVideo(file_path):
+    vid = cv2.VideoCapture(file_path)
+    height = vid.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    width = vid.get(cv2.CAP_PROP_FRAME_WIDTH)
+    return width, height
 warnings.filterwarnings("ignore")
 
 device = ("cuda" if torch.cuda.is_available() else "cpu")
 transform = transforms.Compose([transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
-video_path = r"video\nofight\no-fight (15).mp4"
+video_path = r"video\V_106.mp4"
+width, height = getSizeVideo(video_path)
+print(width, height)
+
 cap = cv2.VideoCapture(video_path)
 
 seq_length = 15
@@ -21,11 +30,11 @@ frames = deque(maxlen=seq_length)
 count = 0
 
 model = CNNLSTM().to(device)
-model.load_state_dict(torch.load("save/model_best.pth", map_location=torch.device('cpu')))
+model.load_state_dict(torch.load("save/model_best25000.pth", map_location=torch.device('cpu')))
 model.eval()
 
 
-out = cv2.VideoWriter('result/output.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (1280,720))
+out = cv2.VideoWriter('result/25000fightV106.avi',cv2.VideoWriter_fourcc('M','J','P','G'), 30, (640,360))
 
 while True:
     ret, frame = cap.read()

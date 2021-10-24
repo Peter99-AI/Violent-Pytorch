@@ -71,7 +71,7 @@ for epoch in range(num_epochs):
 
                 if val_acc > best_val_acc:
                     best_val_acc = val_acc
-                    torch.save(model.state_dict(), "/content/gdrive/MyDrive/save_model/model_best.pth")
+                    torch.save(model.state_dict(), "save/model_best.pth")
 
                 loop.set_postfix(val_accuracy=val_acc)
                 loop.update(1)
